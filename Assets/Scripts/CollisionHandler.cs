@@ -11,6 +11,8 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
 
+    [SerializeField] private float levelLoadDelay = 1f;
+
     // 충돌을 시작할때
     private void OnCollisionEnter(Collision other)
     {
@@ -21,25 +23,28 @@ public class CollisionHandler : MonoBehaviour
                 break;
 
             case "Finish":
-                LoadNextLevel();
-                break;
-
-            case "Fuel":
-                Debug.Log("collision Fuel");
+                StartSuccessSequence();
                 break;
 
             default:
-                ReloadLevel();
+                StartCrashSequence();
                 break;
         }
     }
 
-    private void ReloadLevel()
+    void StartCrashSequence()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        SceneManager.LoadScene(currentSceneIndex);
+        // SFX 및 파티클 추가 필요 
+        GetComponent<Movement>().enabled = false;
+        Invoke("ReloadLevel", levelLoadDelay);
     }
+
+    void StartSuccessSequence()
+    {
+        GetComponent<Movement>().enabled = false;
+        Invoke("LoadNextLevel", levelLoadDelay);
+    }
+
 
     private void LoadNextLevel()
     {
@@ -51,4 +56,12 @@ public class CollisionHandler : MonoBehaviour
         }
         SceneManager.LoadScene(nextSceneIndex);
     }
+
+    private void ReloadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
 }
