@@ -12,10 +12,23 @@ public class CollisionHandler : MonoBehaviour
 {
 
     [SerializeField] private float levelLoadDelay = 1f;
+    [SerializeField] AudioClip crash;
+    [SerializeField] AudioClip success;
+
+    AudioSource audioSource;
+
+    bool isTransitioning = false;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // 충돌을 시작할때
     private void OnCollisionEnter(Collision other)
     {
+        if (isTransitioning) { return; }
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -32,18 +45,25 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
+    void StartSuccessSequence()
+    {
+        isTransitioning = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(success);
+        GetComponent<Movement>().enabled = false;
+        Invoke("LoadNextLevel", levelLoadDelay);
+    }
+
     void StartCrashSequence()
     {
-        // SFX 및 파티클 추가 필요 
+        isTransitioning = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(crash);
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
     }
 
-    void StartSuccessSequence()
-    {
-        GetComponent<Movement>().enabled = false;
-        Invoke("LoadNextLevel", levelLoadDelay);
-    }
+
 
 
     private void LoadNextLevel()

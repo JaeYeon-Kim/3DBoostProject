@@ -135,10 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LandingPad
       objectReference: {fileID: 0}
-    - target: {fileID: 533449764786294891, guid: d80ca62efd6e34a83b0f79ca1e48ff9f, type: 3}
-      propertyPath: m_TagString
-      value: Finish
-      objectReference: {fileID: 0}
     - target: {fileID: 6287010696249597224, guid: d80ca62efd6e34a83b0f79ca1e48ff9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.6
@@ -487,6 +483,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaunchPad
       objectReference: {fileID: 0}
+    - target: {fileID: 533449764786294891, guid: d80ca62efd6e34a83b0f79ca1e48ff9f, type: 3}
+      propertyPath: m_TagString
+      value: Friendly
+      objectReference: {fileID: 0}
     - target: {fileID: 6287010696249597224, guid: d80ca62efd6e34a83b0f79ca1e48ff9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.6
@@ -542,11 +542,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1298642656941254034, guid: c6ca8db5dbfb74a8e9e719cc11c85715, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.6
+      value: -6.85
       objectReference: {fileID: 0}
     - target: {fileID: 1298642656941254034, guid: c6ca8db5dbfb74a8e9e719cc11c85715, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.3
+      value: 1.95
       objectReference: {fileID: 0}
     - target: {fileID: 1298642656941254034, guid: c6ca8db5dbfb74a8e9e719cc11c85715, type: 3}
       propertyPath: m_LocalPosition.z
