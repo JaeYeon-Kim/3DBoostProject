@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 /*
@@ -11,7 +12,8 @@ public class Oscillator : MonoBehaviour
 
     Vector3 startingPosition;
     [SerializeField] Vector3 movementVector;
-    [SerializeField] [Range(0, 1)]float movementFactor;
+    float movementFactor;
+    [SerializeField] float period = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,13 @@ public class Oscillator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(period <= Mathf.Epsilon) { return; }
+        float cycles = Time.time / period;  // 시간에 따라 계속 증가함 
+        const float tau = Mathf.PI * 2; // 6.283 일정한 상수 
+        float rawSinWave = Mathf.Sin(cycles * tau);  // -1과 1사이의 값
+
+        movementFactor = (rawSinWave + 1f) / 2f;
+
         Vector3 offset = movementVector * movementFactor;
         transform.position = startingPosition + offset;
     }
